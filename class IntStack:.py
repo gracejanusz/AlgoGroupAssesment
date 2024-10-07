@@ -42,5 +42,65 @@ class IntStack:
         result, _ = self.top
         return result
 
-    
+import unittest
+
+class Test_IntStack(unittest.TestCase):
+
+    def setUp(self):
+        self.stack = IntStack()
+
+    def test_initial_size(self):
+        """check that intial size is 0"""
+        self.assertEqual(self.stack.size(), 0)
+
+    def test_push_increases_size(self):
+        """check that pushing an int onto stack increases size of stack"""
+        self.stack.push(1)
+        self.assertEqual(self.stack.size(), 1)
+        self.stack.push(2)
+        self.assertEqual(self.stack.size(), 2)
+
+    def test_push_items(self):
+        """make sure ints are correctly pushed onto stack"""
+        self.stack.push(1)
+        self.stack.push(2)
+        self.stack.push(3)
+        self.assertEqual(self.stack.peek(), 3)
+
+    def test_pop_decreases_size(self):
+        """Testing that Popping decreases the size of the stack"""
+        self.stack.push(1)
+        self.stack.push(2)
+        self.stack.pop()
+        self.assertEqual(self.stack.size(), 1)
+
+    def test_pop_returns_last_item(self):
+        """Check that popping pops the most recently addded item"""
+        self.stack.push(1)
+        self.stack.push(2)
+        self.stack.push(3)
+        self.assertEqual(self.stack.pop(), 3)
+        self.assertEqual(self.stack.pop(), 2)
+        self.assertEqual(self.stack.pop(), 1)
+
+    def test_pop_empty_stack(self):
+        """Error is thrown when you try to pop empty stack"""
+        with self.assertRaises(IndexError):
+            self.stack.pop()
+
+    def test_peek(self):
+        """check that peek does not pop top item from stack"""
+        self.stack.push(1)
+        self.stack.push(2)
+        self.assertEqual(self.stack.peek(), 2)
+        self.assertEqual(self.stack.size(), 2)  # The size should remain unchanged.
+
+    def test_peek_empty_stack(self):
+        """check that you can't peek on an empty stack"""
+        with self.assertRaises(IndexError):
+            self.stack.peek()
+
+if __name__ == '__main__':
+    unittest.main()
+
 
